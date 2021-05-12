@@ -23,12 +23,12 @@ class Libro{
     //     return this.titulo;
     // }
 }
-let libro0= new Libro("Manual de JavaScript", "Miguel Angel Alvares y Manu Gutierrez", 125+" paginas", 12000, "/multimedia/Manualjs.jpg");
-let libro1= new Libro("Enfermedades neurológicas hereditarias: genes, mutaciones, clínica y epidemiología general", "Francesc Palau Martínez, Ana Cuesta Peredo, Javier García Planells", 102+" paginas",18000,"/multimedia/EnferNeuro.jpg");
+let libro0= new Libro("Manual de JavaScript", "Miguel Angel Alvares y Manu Gutierrez", 125+" paginas", 12000, "/multimedia/Manualjs.jpg", "programacion");
+let libro1= new Libro("Enfermedades neurológicas hereditarias: genes, mutaciones, clínica y epidemiología general", "Francesc Palau Martínez, Ana Cuesta Peredo, Javier García Planells", 102+" paginas",18000,"/multimedia/EnferNeuro.jpg","ciencia");
 let libro2= new Libro("Manual de Ajedrez","Fernando Braga, Pedro Criado, Claudio Javier Minzer, José Nicás Montoto",246+" paginas",15000,"/multimedia/manualAjedrez.jpg");
-let libro3= new Libro("Todos los cuentos de los hermanos Grimm","Jacob Grimm & Wilhelm Grimm",777+" paginas",20000, "/multimedia/herGrimm.jpg");
-let libro4= new Libro("Para chuparse los dedos","memoria chilena 2009",43+" paginas",17000, "/multimedia/recetas.jpg");
-let libro5= new Libro("Cuentos de amor locura y muerte","Horacio Quiroga",137+" paginas",13000, "/multimedia/amor-locura-muerte.jpg");
+let libro3= new Libro("Todos los cuentos de los hermanos Grimm","Jacob Grimm & Wilhelm Grimm",777+" paginas",20000, "/multimedia/herGrimm.jpg", "literatura");
+let libro4= new Libro("Para chuparse los dedos","memoria chilena 2009",43+" paginas",17000, "/multimedia/recetas.jpg", "cocina");
+let libro5= new Libro("Cuentos de amor locura y muerte","Horacio Quiroga",137+" paginas",13000, "/multimedia/amor-locura-muerte.jpg", "literatura");
 
 baseDatosProductos.push(libro0);
 baseDatosProductos.push(libro1);
@@ -53,7 +53,7 @@ for (let i = 0; i < baseDatosProductos.length; i++) {
       <p class="card-text">Genero: ${baseDatosProductos[i].genero}</p>
       </div>
       <div class="card-footer">
-      <button onclick="${carrito}" onkeypress="enter(event);">Agregar al carrito</button> 
+      <button id="agregar" onclick="${carrito}" onkeypress="enter(event);">Agregar al carrito</button> 
       <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
       </div>
       </div>
@@ -79,9 +79,49 @@ function sumaCarrito(valor){
 
     console.log(sumaCarrito())
 
+//filtro por categoria 
+function anidarCategoria(){
+    let acumulador=``;
+    baseDatosCocina.forEach((element)=>{
+        acumulador +=
+        `<div class="col-lg-4 col-md-6 mb-4">
+         <div class="card h-100">
+         <a href="#"><img class="card-img-top" src="${element[i].imagen}" alt=""></a>
+         <div class="card-body">
+         <h4 class="card-title"><a href="#">${element[i].titulo}</a></h4>
+         <h5>$${element[i].valor} c/u.-</h5>
+         <p class="card-text">Autor(es): ${element[i].autor}</p>
+         <p class="card-text">Cantidad de paginas: ${element[i].paginas}</p>
+         <p class="card-text">Genero: ${element[i].genero}</p>
+         </div>
+         <div class="card-footer">
+         <button id="agregar" onclick="${carrito}" onkeypress="enter(event);">Agregar al carrito</button> 
+         <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+         </div>
+         </div>
+         </div>`; 
+        return acumulador
+        } )
+}
 
+$('#cocina').click(function(){
+    let baseDatosCocina = baseDatosProductos.filter(elemento => elemento.genero ==="cocina")
+    let card = anidarCategoria()
+    $('#cocina').html(card(baseDatosCocina))
+})
 
-  
+$('#literatura').click(function(){
+    let baseDatosLiteratura = baseDatosProductos.filter(elemento => elemento.genero ==="literatura")
+    let card = anidarCategoria()
+    $('#cocina').html(card(baseDatosLiteratura))
+})
+
+$('#ciencia').click(function(){
+    let baseDatosCiencia = baseDatosProductos.filter(elemento => elemento.genero ==="ciencia")
+    let card = anidarCategoria()
+    $('#cocina').html(card(baseDatosCiencia))
+})
+
 function enter(e) { if (e.which == 13 || e.keyCode == 13) { 
  alert("¿esta seguro de agregar al carrito?");        
      }
@@ -106,12 +146,16 @@ for (let i = 0; i <x; i++) {
     <button onclick="datosClientes" onkeypress="click(event);">Enviar</button>
     </form>`} 
 
-document.write(datosClientes)
-
-// function validarFormulario(){
-//     alert("hola");
-//     let nombre= document.getElementById(idDelImputNombtr)
-// }
-
+    document.write(datosClientes)
+    
+$('#agregar').click(function(){
+   $('#agregar').html(datosClientes)
+   alert("Se agrego producto al carrito")
+})
+    // function validarFormulario(){
+        //     alert("hola");
+    //     let nombre= document.getElementById(idDelImputNombtr)
+    // }
+    
 // validar edad 
 //     console.log(nombre,email,contraseña,edad)
