@@ -3,7 +3,6 @@
 document.getElementById("bienvenido").innerHTML=`<div class="alert alert-success">${(prompt("ingresa tu nombre aqui"))} Bienvenido a LEVI</div>`
 console.log()
 
-
 const carrito=[];
 const baseDatosProductos=[];
 
@@ -16,12 +15,6 @@ class Libro{
         this.imagen=imagen;
         this.genero=genero;
     }
-    // devolverTodo(){
-    //     return this.titulo+""+ this.autor+""+ this.paginas+""+ this.valor+"";
-    // }
-    // enviarTitulo(){
-    //     return this.titulo;
-    // }
 }
 let libro0= new Libro("Manual de JavaScript", "Miguel Angel Alvares y Manu Gutierrez", 125+" paginas", 12000, "/multimedia/Manualjs.jpg", "programacion");
 let libro1= new Libro("Enfermedades neurológicas hereditarias: genes, mutaciones, clínica y epidemiología general", "Francesc Palau Martínez, Ana Cuesta Peredo, Javier García Planells", 102+" paginas",18000,"/multimedia/EnferNeuro.jpg","ciencia");
@@ -65,34 +58,41 @@ document.write(acumuladorCardsHome)
 
 //carrito de compras
 let guardarCarrito= localStorage.sumaCarrito
-console.log(guardarCarrito)
+// console.log(guardarCarrito)
 if(guardarCarrito=== null){
+    alert("hola mundo")
 }else{
     const Carrito = [guardarCarrito]
 }
 
-function sumaCarrito(valor){
-    Carrito.push(valor);
+function sumaCarrito(){
+    guardarCarrito.push(valor);
     localStorage.setItem('car', Carrito)
-    console.log(Carrito)}
-    console.log(`Tienes ${Carrito.length} pesos en tu carrito`)
-
+    console.log(guardarCarrito)}
+    console.log(`Tienes ${carrito.length} pesos en tu carrito`)
+    
     console.log(sumaCarrito())
 
-//filtro por categoria 
-function anidarCategoria(){
-    let acumulador=``;
-    baseDatosCocina.forEach((element)=>{
-        acumulador +=
+    
+    function enter(e) { if (e.which == 13 || e.keyCode == 13) { 
+     alert("¿esta seguro de agregar al carrito?");        
+         }
+     }
+      
+    //filtro por categoria 
+    function anidarCategoria(){
+        let acumulador=``;
+        baseDatos.forEach((element)=>{
+            acumulador +=
         `<div class="col-lg-4 col-md-6 mb-4">
          <div class="card h-100">
-         <a href="#"><img class="card-img-top" src="${element[i].imagen}" alt=""></a>
+         <a href="#"><img class="card-img-top" src="${element.imagen}" alt=""></a>
          <div class="card-body">
-         <h4 class="card-title"><a href="#">${element[i].titulo}</a></h4>
-         <h5>$${element[i].valor} c/u.-</h5>
-         <p class="card-text">Autor(es): ${element[i].autor}</p>
-         <p class="card-text">Cantidad de paginas: ${element[i].paginas}</p>
-         <p class="card-text">Genero: ${element[i].genero}</p>
+         <h4 class="card-title"><a href="#">${element.titulo}</a></h4>
+         <h5>$${element.valor} c/u.-</h5>
+         <p class="card-text">Autor(es): ${element.autor}</p>
+         <p class="card-text">Cantidad de paginas: ${element.paginas}</p>
+         <p class="card-text">Genero: ${element.genero}</p>
          </div>
          <div class="card-footer">
          <button id="agregar" onclick="${carrito}" onkeypress="enter(event);">Agregar al carrito</button> 
@@ -100,14 +100,14 @@ function anidarCategoria(){
          </div>
          </div>
          </div>`; 
-        return acumulador
-        } )
-}
+        return acumulador;
+        } )}
 
-$('#cocina').click(function(){
-    let baseDatosCocina = baseDatosProductos.filter(elemento => elemento.genero ==="cocina")
-    let card = anidarCategoria()
-    $('#cocina').html(card(baseDatosCocina))
+$('#cocina').onclick(function(){ 
+    let baseDatosCocina = baseDatosProductos.filter(elemento => elemento.genero ==="cocina");
+    let card = anidarCategoria();
+    $('#cocina').html(card(baseDatosCocina));
+    document.write(baseDatosCocina);
 })
 
 $('#literatura').click(function(){
@@ -122,18 +122,14 @@ $('#ciencia').click(function(){
     $('#cocina').html(card(baseDatosCiencia))
 })
 
-function enter(e) { if (e.which == 13 || e.keyCode == 13) { 
- alert("¿esta seguro de agregar al carrito?");        
-     }
- }
-  
-
 // form ingreso datos clientes on click
 let datosClientes=``;
 for (let i = 0; i <x; i++) {
     console.log()
     datosClientes +=
-    `<h2>Ingrese sus datos</h2>
+    `<div class="col-lg-4 col-md-6 mb-4">
+    <div class="card h-100">
+    <h2>Ingrese sus datos</h2>
     <form action="#">
     <label for="name">Nombre:</label><br>
     <input type="text" id="name" name="name" value=""><br>
@@ -144,18 +140,45 @@ for (let i = 0; i <x; i++) {
     <label for="">Edad:</label><br>
     <input type="text" id="edad" name="edad" value=""><br>
     <button onclick="datosClientes" onkeypress="click(event);">Enviar</button>
-    </form>`} 
+    </form>
+    </div>
+    </div>`} 
 
     document.write(datosClientes)
     
-$('#agregar').click(function(){
-   $('#agregar').html(datosClientes)
-   alert("Se agrego producto al carrito")
+$('#usuario').onclick(function(){
+   $('#usuario').html(datosClientes)
+   //animacion
+    $('#usuario').onclick(function(){
+        $(".a").show(3000)
+    });
+    $('#usuario').onclick(function(){
+        $(".a").hide(3000)
+    });
+    $('#usuario').onclick(function(){
+        $("a").slideDown(3000)
+    });
+    $('#usuario').onclick(function(){
+        $("a").slideToggle(3000)
+    })
 })
-    // function validarFormulario(){
+// function validarFormulario(){
         //     alert("hola");
     //     let nombre= document.getElementById(idDelImputNombtr)
     // }
     
 // validar edad 
 //     console.log(nombre,email,contraseña,edad)
+// $("button").click(function(){ 
+//     $("p.texto").fadeOut(); 
+//   });
+  
+  $( "#levi" ).onclick(function() {
+    $( "#book" ).animate({
+      width: [ "toggle", "swing" ],
+      height: [ "toggle", "swing" ],
+      opacity: "toggle"
+    }, 5000, "linear", function() {
+      $( this ).after( "<div>Animation complete.</div>" );
+    });
+  });
