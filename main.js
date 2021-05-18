@@ -21,7 +21,7 @@ let libro1= new Libro("Enfermedades neurológicas hereditarias: genes, mutacione
 let libro2= new Libro("Manual de Ajedrez","Fernando Braga, Pedro Criado, Claudio Javier Minzer, José Nicás Montoto",246+" paginas",15000,"/multimedia/manualAjedrez.jpg");
 let libro3= new Libro("Todos los cuentos de los hermanos Grimm","Jacob Grimm & Wilhelm Grimm",777+" paginas",20000, "/multimedia/herGrimm.jpg", "literatura");
 let libro4= new Libro("Para chuparse los dedos","memoria chilena 2009",43+" paginas",17000, "/multimedia/recetas.jpg", "cocina");
-let libro5= new Libro("Cuentos de amor locura y muerte","Horacio Quiroga",137+" paginas",13000, "/multimedia/amor-locura-muerte.jpg", "literatura");
+let libro5= new Libro("Cuentos de amor locura y muerte","Horacio Quiroga",137+" paginas", 13000, "/multimedia/amor-locura-muerte.jpg", "literatura");
 
 baseDatosProductos.push(libro0);
 baseDatosProductos.push(libro1);
@@ -56,22 +56,32 @@ for (let i = 0; i < baseDatosProductos.length; i++) {
 document.write(acumuladorCardsHome)
 //   document.getElementById("productos").innerHTML = acumuladorCardsHome;
 
-//carrito de compras
-let guardarCarrito= localStorage.sumaCarrito
-// console.log(guardarCarrito)
-if(guardarCarrito=== null){
-    alert("hola mundo")
-}else{
-    const Carrito = [guardarCarrito]
-}
 
-function sumaCarrito(){
-    guardarCarrito.push(valor);
-    localStorage.setItem('car', Carrito)
-    console.log(guardarCarrito)}
+//carrito de compras
+console.log(JSON.parse(localStorage.getItem("carrito")));
+console.log(localStorage.getItem("carrito"))
+
+function sumarCarrito(carrito){
+    guardarcarrito.push(carrito);
+    localStorage.setItem("carrito", JSON.stringify(carrito));
     console.log(`Tienes ${carrito.length} pesos en tu carrito`)
-    
-    console.log(sumaCarrito())
+
+    let acumuladorCarrito =``
+    for (let i=0; i< carrito.length; i++){
+        acumuladorCard += 
+        `<div class =" card col-12 col-md-12 col-lg-12 animate__animated animate__slideInDown" id="medidaDiv">
+        <img class="card-img-top" src="${carrito[i].imagen}" alt="Tarjeta image" id="medidaCard"> 
+        <div class="col card-body"> 
+        <h4 class="card-title text-center">${carrito[i].titulo}</h4> 
+        <p class="card-text text-center">${carrito[i].precio}</p> 
+        <div class="col text-center"> 
+        <a onclick="agregarProductoAlCarrito (${carrito[i].precio})"href="#" class="btn btn-info btn-default">Agregar al carrito</a> 
+        </div> 
+        </div>
+        </div> `
+    }
+    document.getElementById('carritoCompras').innerHTML=acumuladorCarrito
+}
 
     
     function enter(e) { if (e.which == 13 || e.keyCode == 13) { 
@@ -103,6 +113,8 @@ function sumaCarrito(){
         return acumulador;
         } )}
 
+
+//animaciones
 $('#cocina').onclick(function(){ 
     let baseDatosCocina = baseDatosProductos.filter(elemento => elemento.genero ==="cocina");
     let card = anidarCategoria();
@@ -110,13 +122,13 @@ $('#cocina').onclick(function(){
     document.write(baseDatosCocina);
 })
 
-$('#literatura').click(function(){
+$('#literatura').onclick(function(){
     let baseDatosLiteratura = baseDatosProductos.filter(elemento => elemento.genero ==="literatura")
     let card = anidarCategoria()
     $('#cocina').html(card(baseDatosLiteratura))
 })
 
-$('#ciencia').click(function(){
+$('#ciencia').onclick(function(){
     let baseDatosCiencia = baseDatosProductos.filter(elemento => elemento.genero ==="ciencia")
     let card = anidarCategoria()
     $('#cocina').html(card(baseDatosCiencia))
@@ -145,7 +157,24 @@ for (let i = 0; i <x; i++) {
     </div>`} 
 
     document.write(datosClientes)
+
+//validacion formulario 
+function validarFormulario(){
+    let nombre= $('#nombre').val()
+    let correo= $('#correo').val()
+    let contrasena= $('#contra').val()
+    let edad= Number($('#edad').val())
+
+    edad= edad || 0
     
+    alert(`Hola ${nombre}, ${correo}, ${contrasena}, ${edad}`);
+    if(edad >= 18){
+        console.log(`Estimado ${nombre}, su correo ${correo} ha sido registrado, Gracias por estar con nosotros!`)
+    }else{
+        $('#aviso').html(`<p>Usted no puede registrarse debido a que es menor de edad</p>`)
+    }
+}
+
 $('#usuario').onclick(function(){
    $('#usuario').html(datosClientes)
    //animacion
@@ -162,17 +191,8 @@ $('#usuario').onclick(function(){
         $("a").slideToggle(3000)
     })
 })
-// function validarFormulario(){
-        //     alert("hola");
-    //     let nombre= document.getElementById(idDelImputNombtr)
-    // }
-    
-// validar edad 
-//     console.log(nombre,email,contraseña,edad)
-// $("button").click(function(){ 
-//     $("p.texto").fadeOut(); 
-//   });
-  
+
+      
   $( "#levi" ).onclick(function() {
     $( "#book" ).animate({
       width: [ "toggle", "swing" ],
@@ -182,3 +202,29 @@ $('#usuario').onclick(function(){
       $( this ).after( "<div>Animation complete.</div>" );
     });
   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  let map;
+
+function initMap() {
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: -34.397, lng: 150.644 },
+    zoom: 8,
+  });
+}
