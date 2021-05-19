@@ -114,7 +114,7 @@ function sumarCarrito(carrito){
         } )}
 
 
-//animaciones
+//anidar por categorias
 $('#cocina').onclick(function(){ 
     let baseDatosCocina = baseDatosProductos.filter(elemento => elemento.genero ==="cocina");
     let card = anidarCategoria();
@@ -175,6 +175,8 @@ function validarFormulario(){
     }
 }
 
+
+// animaciones
 $('#usuario').onclick(function(){
    $('#usuario').html(datosClientes)
    //animacion
@@ -206,21 +208,45 @@ $('#usuario').onclick(function(){
 
 
 
+//API
+async function llamarDatos(){
+let dataMl=await fetch("https://api.mercadolibre.com/sites/MLA/search?q=")
+let response=await dataMl.json();
 
 
+let data= await fetch("https://api.mercadopago.com7checkout7prerences", {
+        method:"POST",
+        headers:{
+            "Authorization": "Bearer TEST-2265982221461055-051902-087c10ecbb6ddf372f45f015e8f5396f-247689938"
+        },
+        body:JSON.stringify(json),
+    })
+} 
+// let responseMP = await data.json();
+// location.href = responseMP.init_point
 
 
+//   $( document ).ready(function() {
+//     let api_url = 'https://api.test.com' ; // URL destino de la llamada a la API
+//     let key = '5b578yg9yvi8sogirbvegoiufg9v9g579gviuiub8' // clave alfanumerica para autenticarse (ej)
+//     let monto = 1123;
+//     $( ".content a" ).each(function( index, element ) {
+//       $.ajax({
+//           url: api_url + "?key=" + key + " &funcion=procesarPago&monto" + monto , // URL a donde llama
+//           contentType: "application/json",
+//           dataType: 'json',
+//           success: function(result){
+//           // recibe el resultado y lo muestra en un elemento p
+//           $('p.resultado').html(result);
+//           }
+//       })
+//     });
+//   });
+  
 
 
+// Mapa
 
-
-
-
-
-
-
-
-  let map;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -228,3 +254,31 @@ function initMap() {
     zoom: 8,
   });
 }
+
+// let apa=[];
+// function mapa(){
+//         map = new google.maps.Map(document.getElementById("map"), {
+//         center: { lat: -33.519049, lng: -70.595120 },
+//         zoom: 8,
+//         }
+//     apa.forEach((element)=>{
+//         acumulador +=
+//     `<div class="col-lg-12 col-md-12 mb-12">
+//      <div class="card h-100">
+//      <a href="#" src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&libraries=&v=weekly"
+//      async alt=""></a>
+//      <div class="card-body">
+//      <h4 class="card-title"><a href="#">Mapa Descriptivo</a></h4>
+//      </div>
+//      <div class="card-footer">
+//      <button id="agregar" onclick="${carrito}" onkeypress="enter(event);">Agregar al carrito</button> 
+//      <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+//      </div>
+//      </div>
+//      </div>`; 
+   
+//     } )
+//     // return mapa; 
+// )}
+// document.write(mapa())
+CDP
